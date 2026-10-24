@@ -1,12 +1,14 @@
 import mongoose from 'mongoose';
 
+export const ROLES = ['user', 'organizer', 'admin'];
+
 const userSchema = new mongoose.Schema(
   {
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    first_name: { type: String, required: true, trim: true },
+    last_name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true },
-    role: { type: String, default: 'user' }
+    role: { type: String, enum: ROLES, default: 'user' }
   },
   { timestamps: true }
 );
